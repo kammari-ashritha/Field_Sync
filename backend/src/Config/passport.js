@@ -12,7 +12,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID || "PLACEHOLDER",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "PLACEHOLDER",
-      callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:5000/api/auth/google/callback",
+      callbackURL: process.env.GOOGLE_CALLBACK_URL || "https://field-sync-1.onrender.com/api/auth/google/callback",
     },
     async (_at, _rt, profile, done) => {
       try {
