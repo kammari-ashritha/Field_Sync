@@ -15,14 +15,13 @@ export default function AdminDashboard() {
   const regionEntries = Object.entries(stats?.regions || {});
   const activityEntries = Object.entries(stats?.activities || {});
 
-  // Pass a clean structured summary object to the metric cards component
-  const localizedCardMetrics = {
-    totalReports: stats?.totalSubmissions || 0, // Maps to your backend property
-    totalParticipants: stats?.totalParticipants || 0,
-    regionsCount: regionEntries.length,       // Safely passes a count number
-    activitiesCount: activityEntries.length,   // Safely passes a count number
-  };
-
+  // Change this block inside AdminDashboard.jsx:
+const localizedCardMetrics = {
+  totalReports: stats?.totalSubmissions || rows.length,
+  totalParticipants: stats?.totalParticipants || rows.reduce((acc, row) => acc + (row.participantsCount || 0), 0),
+  regionsCount: regionEntries.length || [...new Set(rows.map(r => r.region))].length, 
+  activitiesCount: activityEntries.length || [...new Set(rows.map(r => r.activityType))].length,
+};
   return (
     <div className="p-6 bg-gray-50/50 min-h-screen space-y-8">
       {/* Header Section */}

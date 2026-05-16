@@ -11,7 +11,9 @@ const submissionSchema = new mongoose.Schema(
     beneficiaryInfo: { type: String },
     dateConducted: { type: Date, required: true },
   },
-  { timestamps: true }
+  { timestamps: true,
+    collection: "ngodash"
+   }
 );
 
 export default mongoose.model("Submission", submissionSchema);
