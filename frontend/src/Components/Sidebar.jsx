@@ -1,16 +1,31 @@
+// frontend/src/Components/Sidebar.jsx
+import React from "react";
 import { NavLink } from "react-router-dom";
-
-const link = ({ isActive }) =>
-  `block px-3 py-2 rounded-md text-sm ${isActive ? "bg-gray-900 text-white" : "hover:bg-gray-100"}`;
 
 export default function Sidebar({ items }) {
   return (
-    <aside className="w-full md:w-56 md:min-h-[calc(100vh-57px)] bg-white border-r p-3">
-      <nav className="space-y-1">
-        {items.map((i) => (
-          <NavLink key={i.to} to={i.to} end className={link}>{i.label}</NavLink>
-        ))}
-      </nav>
-    </aside>
+    <nav className="w-full h-full flex flex-col gap-1.5 p-4 bg-slate-900 text-slate-300">
+      <div className="px-3 mb-2 text-xs font-bold uppercase tracking-widest text-slate-500">
+        Navigation Map
+      </div>
+
+      {items.map((item, index) => (
+        <NavLink
+          key={index}
+          to={item.to}
+          className={({ isActive }) => `
+            flex items-center px-4 py-3 rounded-xl font-medium tracking-wide transition-all duration-200 gap-3 group
+            ${isActive 
+              ? "bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-900/40 translate-x-1" 
+              : "hover:bg-slate-800/60 hover:text-white"
+            }
+          `}
+        >
+          {/* Decorative small dot matrix point indicators */}
+          <span className="w-2 h-2 rounded-full bg-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <span>{item.label}</span>
+        </NavLink>
+      ))}
+    </nav>
   );
 }

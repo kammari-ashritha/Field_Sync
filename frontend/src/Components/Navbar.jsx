@@ -1,29 +1,38 @@
-import { Link, useNavigate } from "react-router-dom";
+// frontend/src/Components/Navbar.jsx
+import React from "react";
+import CanvasIcon from "./CanvasIcon.jsx";
 import { useAuth } from "../Context/AuthContext.jsx";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-  const nav = useNavigate();
+
   return (
-    <header className="bg-white border-b">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="font-semibold">FieldSync</Link>
-        <nav className="flex items-center gap-3 text-sm">
-          {user ? (
-            <>
-              <span className="text-gray-500 hidden sm:inline">{user.email} ({user.role})</span>
-              <button className="btn-light" onClick={() => { logout(); nav("/login"); }}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link className="btn-light" to="/login">Login</Link>
-              <Link className="btn" to="/register">Sign up</Link>
-            </>
-          )}
-        </nav>
+    <header className="w-full h-16 bg-gradient-to-r from-white via-slate-50 to-indigo-50/30 px-6 flex items-center justify-between shadow-sm border-b border-gray-100">
+      {/* Left Section: Icon & Branding Brandmark */}
+      <div className="flex items-center gap-3 group cursor-pointer">
+        <div className="p-2 bg-indigo-50 rounded-xl group-hover:scale-110 transition-transform duration-200">
+          <CanvasIcon />
+        </div>
+        <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-950 to-indigo-600 bg-clip-text text-transparent">
+          FieldSync
+        </span>
       </div>
+
+      {/* Right Section: Profile Interaction Menu Matrix */}
+      {user && (
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:flex flex-col text-right">
+            <span className="text-sm font-semibold text-slate-800">{user.name}</span>
+            <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">{user.role}</span>
+          </div>
+          <button 
+            onClick={logout}
+            className="px-4 py-1.5 text-sm font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors duration-200"
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </header>
   );
 }
